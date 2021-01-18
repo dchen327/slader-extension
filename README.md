@@ -48,7 +48,7 @@ Although unverified add-on was blocked by firefox policy, you still can install 
 
 or use
 
- git clone https://github.com/lebr0nli/slader-extension.git
+ 	git clone https://github.com/lebr0nli/slader-extension.git
 
 2. Open **about:debugging#/runtime/this-firefox** in a new tab.
 3. Click the **Load Temporary Add-on...** button that just appeared.
