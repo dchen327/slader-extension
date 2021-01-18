@@ -1,4 +1,4 @@
-# Slader Chrome Extension!
+# Slader Extension!
 
 * Bypass Slader's 5 solutions limit per month to college books 
 * Remove the paywall about how many solutions left
