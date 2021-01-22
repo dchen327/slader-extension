@@ -4,7 +4,7 @@
 * Remove the paywall about how many solutions left
 - Support Browser:
   - Chrome : 87.0.4280.141 
-  - Firefox (temporary) : 84.0.2
+  - Firefox : 84.0.2
 - Test time : 2021/01/18
 
 # Screenshot
@@ -40,20 +40,17 @@ or use
 
 ## For Firefox
 
-Sorry, I can't find a good way to make firefox's users use it gracefully :(
-
-Although unverified add-on was blocked by firefox policy, you still can install it temporarily. (Need reinstall every time you restart your browser)
-
 1. Clone(Download) slader-extension.zip from github then unzip 
 
 or use
 
  	git clone https://github.com/lebr0nli/slader-extension.git
 
-2. Open **about:debugging#/runtime/this-firefox** in a new tab.
-3. Click the **Load Temporary Add-on...** button that just appeared.
-4. Select the file **slader-limit-bypass.xpi** in **slader-extension-main** or **slader-extension**
-5. Done! But need reinstall every time you restart your browser.
+2. Select the file **slader-limit-bypass.xpi** in **slader-extension-main** 
+
+3. Drag the file into the URL bar, click "add" when prompted
+
+4. Done!
 
 # Warning
 
