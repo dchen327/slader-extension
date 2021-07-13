@@ -12,15 +12,17 @@ function renderBypass()
     katex_css.setAttribute('href','https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css ');
     document.head.appendChild(katex_css);
 
+    // Get the webpage data, devoid of any headers or cookies. Acts as if the user is not logged in at all.
+    doFetch(window.location).then(data => { processData(data); })
+
+}
+function processData(data){
     // Clear the "hidden explanation" out and replace it with a blank explanation area.
     // The innermost item is ".s1i7awl8"
     document.querySelector('main .mwhvwas').innerHTML = '<div class="c18oith1 sladerBypass"><div class="s1oluvjw"><h4 class="h1cwp1lk">Explanation</h4><div class="as7m9cv snqbbas"><div data-testid="ExplanationsSolution" class="e1sw891e"><div class="s1i7awl8"></div></div></div></div></div>';
     var expArea = document.querySelector('.sladerBypass .s1i7awl8')
 
     // Render new stuff
-
-    // Get the webpage data, devoid of any headers or cookies. Acts as if the user is not logged in at all.
-    var data = httpGet(window.location);
 
     // Is this an abomination? Yes.
     // Does it work? Also yes.
@@ -29,8 +31,8 @@ function renderBypass()
     // 
     // I don't want to talk about it.
     //
-    var b = data.match(/(?<=window.Quizlet\["questionDetailsPageData"] = ).+?(?=; QLoad\("Quizlet.questionDetailsPageData")/gm);
-    if (!b)
+    var json = data.match(/(?<=window.Quizlet\["questionDetailsPageData"] = ).+?(?=; QLoad\("Quizlet.questionDetailsPageData")/gm);
+    if (!json)
     {
         if (window.location.toString().includes('quizlet.com/explanations/textbook-solutions'))
         {
@@ -48,7 +50,7 @@ function renderBypass()
 
 
     // Parse JSON data
-    var qDetails = JSON.parse(b[0]);
+    var qDetails = JSON.parse(json[0]);
 
     // Display JSON data as answer
     qDetails.question.solutions.forEach(solution => {
@@ -103,15 +105,20 @@ function renderBypass()
     });
 };
 
-
-
-// Handle GET request
-function httpGet(url)
+async function doFetch(url)
 {
-    var req = new XMLHttpRequest();
-    req.open( "GET", url, false ); // false -> synchronous request
-    req.send( null );
-    return req.responseText;
+    const response = await fetch(url, {
+        method: 'GET', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'omit', // include, *same-origin, omit
+        headers: {
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        body: null // body data type must match "Content-Type" header
+    });
+    return response.text();
 }
 
 
