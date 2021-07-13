@@ -1,6 +1,6 @@
 {
   "name": "slader bypass",
-  "version": "0.1",
+  "version": "0.2",
   "author":"Alan Li",
   "description": "slader 5 solutions limit bypass",
   "permissions": [
@@ -18,7 +18,11 @@
     {
         "matches": ["*://*.slader.com/textbook/*"],
         "js": ["js/content_script.js"]
-    }
+    },
+    {
+      "matches": ["*://quizlet.com/explanations/questions/*"],
+      "js": ["js/quizlet_bypass.js"]
+  }
 ],
   "manifest_version": 2
   }
