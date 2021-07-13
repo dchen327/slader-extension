@@ -32,7 +32,16 @@ function renderBypass()
     var b = data.match(/(?<=window.Quizlet\["questionDetailsPageData"] = ).+?(?=; QLoad\("Quizlet.questionDetailsPageData")/gm);
     if (!b)
     {
-        expArea.innerHTML = `<div style="color: red;"><h1>You have been ratelimited by Quizlet</h1><br>Try clearing your cookies for Quizlet.<br>— Slader Bypass</div>`;
+        if (window.location.toString().includes('quizlet.com/explanations/textbook-solutions'))
+        {
+            // TODO: Redirect to old site
+            expArea.innerHTML = `<div style="color: red;"><h1>Textbooks currently only supported by Slader Bypass on the old website.</h1><br>Click <a href="#">here</a> to be redirected to the working version of this question.</div>`;
+        }
+        else
+        {
+            // Display ratelimit message
+            expArea.innerHTML = `<div style="color: red;"><h1>You have been ratelimited by Quizlet</h1><br>Try clearing your cookies for Quizlet and reloading this page, this usually fixes it.<br>— Slader Bypass.</div>`;
+        }
     }
 
     // TODO: Branch off to handle textbookExercisePageData. See line 1349 in "deleteme.html".
@@ -59,9 +68,15 @@ function renderBypass()
             // It seems that only one column is ever used. I'll iterate anyways, because I can't trust that.
             step.columns.forEach(column => {
                 // Insert inner text
-                div.querySelector('.sladerBypassKatex').textContent = column.text.replaceAll('\n\n\n', '\n\n'); // The replace call is a bit funky but it works.
-
-                // TODO: Handle column.images.additional
+                if (column.text)
+                    div.querySelector('.sladerBypassKatex').textContent = column.text.replaceAll('\n\n\n', '\n\n'); // The replace call is a bit funky but it works.
+                // Insert image, if applicable
+                if (column.images.additional)
+                {
+                    var image = document.createElement('img');
+                    image.setAttribute('src', column.images.additional.regular.srcUrl);
+                    div.querySelector('.sladerBypassKatex').appendChild(image);
+                }
             });
             
             // Append card to explanation area.
