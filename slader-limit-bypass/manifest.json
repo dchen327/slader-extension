@@ -21,7 +21,7 @@
     },
     {
       "matches": ["*://quizlet.com/explanations/*"],
-      "js": ["js/quizlet_bypass.js"]
+      "js": ["js/katex/katex.js", "js/katex/autorender.js", "js/quizlet_bypass.js"]
   }
 ],
   "manifest_version": 2
