@@ -37,7 +37,8 @@ function processData(data){
         if (window.location.toString().includes('quizlet.com/explanations/textbook-solutions'))
         {
             var oldlink = getOldTextbookLink();
-            expArea.innerHTML = `<div style="color: red;"><h1>Textbooks currently only supported by Slader Bypass on the old website.</h1><br>Click <a href="` + oldlink + `">here</a> to be redirected to the working version of this question. If that doesn't work, try finding it manually on the old site.</div>`;
+            expArea.innerHTML = `<div style="color: red;"><h1>Textbooks currently only supported by Slader Bypass on the old website.</h1><br>Click <a href="#" class='sladerBypassOldLink'>here</a> to be redirected to the working version of this question. If that doesn't work, try finding it manually on the old site.</div>`;
+            document.querySelector('.sladerBypassOldLink').href = oldlink;
         }
         else
         {
@@ -62,9 +63,9 @@ function processData(data){
             // Insert boilerplate card data
             div.innerHTML = '<div class="r8gl7vf" data-testid="ExplanationsSolutionStep" style="padding-top: 0.8rem;"><div class="AssemblyCard AssemblyMediumCard"><div class="ExplanationsSolutionCard c5ngj6s"><div class="h1ejaztj"><h4 class="s39tzu2"></h4><span class="sb9ch1t"></span></div><div class="s1wwu7g8"><div class="s1x7f4sz"><div class=""><div class="s1xkd811"><div class="mi4ni5d sladerBypassKatex" style="white-space: pre-wrap;"></div></div></div></div></div></div></div></div>';
             // Step X: .s39tzu2
-            div.querySelector('.s39tzu2').innerHTML = (numSteps === stepNum) ? "Result" : "Step " + stepNum;
+            div.querySelector('.s39tzu2').textContent = (numSteps === stepNum) ? "Result" : "Step " + stepNum;
             // x of x: .sb9ch1t
-            div.querySelector('.sb9ch1t').innerHTML = stepNum + ' of ' + numSteps;
+            div.querySelector('.sb9ch1t').textContent = stepNum + ' of ' + numSteps;
             
             // I'm not 100% on the structure of these, but I'll take a stab at it.
             // It seems that only one column is ever used. I'll iterate anyways, because I can't trust that.
