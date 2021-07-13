@@ -15,8 +15,6 @@
 ![2](https://raw.githubusercontent.com/lebr0nli/slader-extension/main/sample/before2.png)
 ![3](./sample/quizletbefore.png)
 
---- 
-
 ## After install
 
 ![4](https://raw.githubusercontent.com/lebr0nli/slader-extension/main/sample/after.png)
