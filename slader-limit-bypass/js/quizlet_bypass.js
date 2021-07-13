@@ -34,8 +34,8 @@ function renderBypass()
     {
         if (window.location.toString().includes('quizlet.com/explanations/textbook-solutions'))
         {
-            // TODO: Redirect to old site
-            expArea.innerHTML = `<div style="color: red;"><h1>Textbooks currently only supported by Slader Bypass on the old website.</h1><br>Click <a href="#">here</a> to be redirected to the working version of this question.</div>`;
+            var oldlink = getOldTextbookLink();
+            expArea.innerHTML = `<div style="color: red;"><h1>Textbooks currently only supported by Slader Bypass on the old website.</h1><br>Click <a href="` + oldlink + `">here</a> to be redirected to the working version of this question. If that doesn't work, try finding it manually on the old site.</div>`;
         }
         else
         {
@@ -44,7 +44,7 @@ function renderBypass()
         }
     }
 
-    // TODO: Branch off to handle textbookExercisePageData. See line 1349 in "deleteme.html".
+    // TODO: Handle textbookExercisePageData.
 
 
     // Parse JSON data
@@ -112,4 +112,16 @@ function httpGet(url)
     req.open( "GET", url, false ); // false -> synchronous request
     req.send( null );
     return req.responseText;
+}
+
+
+function getOldTextbookLink(url)
+{
+    // This is mostly approximate.
+    const bookTitle = window.location.toString().match(/(?<=quizlet\.com\/explanations\/textbook-solutions\/).+?(?=-\d\d\d\d\d\d\d)/)[0];
+    const bookISBN = window.location.toString().split(bookTitle)[1].split('/')[0].replaceAll('-', '');
+    const page = document.getElementsByClassName('tsqwngb')[0].children[1].innerHTML.slice(5);
+    const problem = document.getElementsByClassName('t1aekklg')[0].innerHTML.slice(9);
+
+    return "https://www.slader.com/textbook/" + bookISBN + '-' + bookTitle + '/' + page + '/problems/' + problem;
 }
