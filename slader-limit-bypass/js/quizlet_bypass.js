@@ -55,8 +55,10 @@ function processData(data){
 
     // Display JSON data as answer
     qDetails.question.solutions.forEach(solution => {
+        console.log(solution)
         const numSteps = solution.steps.length;
         solution.steps.forEach(step => {
+            //console.log(step);
             const stepNum = step.stepNumber;
             // Create card element
             var div = document.createElement('div');
@@ -70,9 +72,13 @@ function processData(data){
             // I'm not 100% on the structure of these, but I'll take a stab at it.
             // It seems that only one column is ever used. I'll iterate anyways, because I can't trust that.
             step.columns.forEach(column => {
+                var columnDiv = document.createElement('div');
                 // Insert inner text
                 if (column.text)
-                    div.querySelector('.sladerBypassKatex').textContent = column.text.replaceAll('\n\n\n', '\n\n'); // The replace call is a bit funky but it works.
+                {
+                    columnDiv.textContent = column.text.replaceAll('\n\n\n', '\n\n'); // The replace call is a bit funky but it works.
+                    div.querySelector('.sladerBypassKatex').appendChild(columnDiv);
+                }
                 // Insert image, if applicable
                 if (column.images.additional)
                 {
