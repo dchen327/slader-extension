@@ -1,7 +1,7 @@
 {
   "name": "slader bypass",
-  "version": "0.2",
-  "author":"Alan Li",
+  "version": "0.3",
+  "author":"Alan Li & Ethan Harvey",
   "description": "slader 5 solutions limit bypass",
   "permissions": [
     "webRequest",
