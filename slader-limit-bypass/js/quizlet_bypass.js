@@ -55,10 +55,8 @@ function processData(data){
 
     // Display JSON data as answer
     qDetails.question.solutions.forEach(solution => {
-        console.log(solution)
         const numSteps = solution.steps.length;
         solution.steps.forEach(step => {
-            //console.log(step);
             const stepNum = step.stepNumber;
             // Create card element
             var div = document.createElement('div');
