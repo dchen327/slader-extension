@@ -143,15 +143,3 @@ async function doFetch(url)
     });
     return response.text();
 }
-
-
-function getOldTextbookLink(url)
-{
-    // This is mostly approximate.
-    const bookTitle = window.location.toString().match(/(?<=quizlet\.com\/explanations\/textbook-solutions\/).+?(?=-\d\d\d\d\d\d\d)/)[0];
-    const bookISBN = window.location.toString().split(bookTitle)[1].split('/')[0].replaceAll('-', '');
-    const page = document.getElementsByClassName('tsqwngb')[0].children[1].innerHTML.slice(5);
-    const problem = document.getElementsByClassName('t1aekklg')[0].innerHTML.slice(9);
-
-    return "https://www.slader.com/textbook/" + bookISBN + '-' + bookTitle + '/' + page + '/problems/' + problem;
-}
