@@ -31,30 +31,18 @@ function processData(data){
     // 
     // I don't want to talk about it.
     //
-    var json = data.match(/(?<=window.Quizlet\["questionDetailsPageData"] = ).+?(?=; QLoad\("Quizlet.questionDetailsPageData")/gm);
+    var json = data.match(/(?<=window.Quizlet\["(questionDetailsPageData|textbookExercisePageData)"] = ).+?(?=; QLoad\("Quizlet.(questionDetailsPageData|textbookExercisePageData)")/gm);
     if (!json)
     {
-        if (window.location.toString().includes('quizlet.com/explanations/textbook-solutions'))
-        {
-            var oldlink = getOldTextbookLink();
-            expArea.innerHTML = `<div style="color: red;"><h1>Textbooks currently only supported by Slader Bypass on the old website.</h1><br>Click <a href="#" class='sladerBypassOldLink'>here</a> to be redirected to the working version of this question. If that doesn't work, try finding it manually on the old site.</div>`;
-            document.querySelector('.sladerBypassOldLink').href = oldlink;
-        }
-        else
-        {
-            // Display ratelimit message
-            expArea.innerHTML = `<div style="color: red;"><h1>You have been ratelimited by Quizlet</h1><br>Try clearing your cookies for Quizlet and reloading this page, this usually fixes it.<br>— Slader Bypass.</div>`;
-        }
+        // Display ratelimit message
+        expArea.innerHTML = `<div style="color: red;"><h1>You have been ratelimited by Quizlet</h1><br>Try clearing your cookies for Quizlet and reloading this page, this usually fixes it.<br>— Slader Bypass.</div>`;
     }
-
-    // TODO: Handle textbookExercisePageData.
-
 
     // Parse JSON data
     var qDetails = JSON.parse(json[0]);
-
+    var solutions = (qDetails.question || qDetails.exercise).solutions;
     // Display JSON data as answer
-    qDetails.question.solutions.forEach(solution => {
+    solutions.forEach(solution => {
         const numSteps = solution.steps.length;
         solution.steps.forEach(step => {
             const stepNum = step.stepNumber;
