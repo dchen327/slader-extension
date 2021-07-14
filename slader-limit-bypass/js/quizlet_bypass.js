@@ -76,16 +76,26 @@ function processData(data){
                 // Insert inner text
                 if (column.text)
                 {
-                    columnDiv.textContent = column.text.replaceAll('\n\n\n', '\n\n'); // The replace call is a bit funky but it works.
-                    div.querySelector('.sladerBypassKatex').appendChild(columnDiv);
+                    var textDiv = document.createElement('div');
+                    textDiv.classList.add('sladerBypassKatexTextArea')
+                    textDiv.textContent = column.text.replaceAll('\n\n\n', '\n\n'); // The replace call is a bit funky but it works.
+                    columnDiv.appendChild(textDiv);
                 }
                 // Insert image, if applicable
                 if (column.images.additional)
                 {
                     var image = document.createElement('img');
                     image.setAttribute('src', column.images.additional.regular.srcUrl);
-                    div.querySelector('.sladerBypassKatex').appendChild(image);
+                    columnDiv.appendChild(image);
                 }
+
+                // Append server-rendered image src url. Used in errorhandling. (See: handleKatexError())
+                if (column.images.latex.large)
+                {
+                    div.querySelector('.sladerBypassKatex').setAttribute('katexsrc', column.images.latex.large.srcUrl);
+                }
+
+                div.querySelector('.sladerBypassKatex').appendChild(columnDiv);
             });
             
             // Append card to explanation area.
@@ -95,22 +105,42 @@ function processData(data){
 
     // Render Katex for each card
     expArea.querySelectorAll('.sladerBypassKatex').forEach(textArea => {
-        renderMathInElement(textArea, {
-            delimiters: [
-                {left: "$$", right: "$$", display: true},
-                {left: "$", right: "$", display: false},
-                {left: "\\(", right: "\\)", display: false},
-                {left: "\\begin{equation}", right: "\\end{equation}", display: true},
-                {left: "\\begin{align}", right: "\\end{align}", display: true},
-                {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
-                {left: "\\begin{gather}", right: "\\end{gather}", display: true},
-                {left: "\\begin{CD}", right: "\\end{CD}", display: true},
-                {left: "\\[", right: "\\]", display: true}
-              ],
-            throwOnError : false
-        });    
+        try {
+            renderMathInElement(textArea, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false},
+                    {left: "\\(", right: "\\)", display: false},
+                    {left: "\\begin{equation}", right: "\\end{equation}", display: true},
+                    {left: "\\begin{align}", right: "\\end{align}", display: true},
+                    {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
+                    {left: "\\begin{gather}", right: "\\end{gather}", display: true},
+                    {left: "\\begin{CD}", right: "\\end{CD}", display: true},
+                    {left: "\\[", right: "\\]", display: true}
+                  ],
+                throwOnError : true,
+                errorCallback : function(a, b){ handleKatexError(a, b, textArea); }
+            });        
+        } catch (error) {
+            console.error('Katex experienced an error. Attempting to load image replacement.');
+        }
     });
 };
+
+function handleKatexError(a, b, textArea)
+{
+    // Display Katex error
+    console.error(a);
+    console.error(b);
+
+    // Remove broken Katex
+    textArea.querySelector('.sladerBypassKatexTextArea').innerHTML = '';
+
+    // Fallback to server-rendered katex (I'm assuming they have better error detection there.)
+    var image = document.createElement('img');
+    image.setAttribute('src', textArea.getAttribute('katexsrc'));
+    textArea.appendChild(image);
+}
 
 async function doFetch(url)
 {
