@@ -1,7 +1,7 @@
 {
   "name": "slader bypass",
-  "version": "0.1",
-  "author":"Alan Li",
+  "version": "0.3",
+  "author":"Alan Li & Ethan Harvey",
   "description": "slader 5 solutions limit bypass",
   "permissions": [
     "webRequest",
@@ -18,7 +18,11 @@
     {
         "matches": ["*://*.slader.com/textbook/*"],
         "js": ["js/content_script.js"]
-    }
+    },
+    {
+      "matches": ["*://quizlet.com/explanations/questions/*", "*://quizlet.com/explanations/textbook-solutions/*/*"],
+      "js": ["js/katex/katex.js", "js/katex/autorender.js", "js/quizlet_bypass.js"]
+  }
 ],
   "manifest_version": 2
   }
