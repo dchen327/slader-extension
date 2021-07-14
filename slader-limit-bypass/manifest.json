@@ -1,8 +1,8 @@
 {
   "name": "slader bypass",
-  "version": "0.3",
+  "version": "0.4",
   "author":"Alan Li & Ethan Harvey",
-  "description": "slader 5 solutions limit bypass",
+  "description": "Slader/Quizlet 5 solutions limit bypass",
   "permissions": [
     "webRequest",
     "webRequestBlocking",
