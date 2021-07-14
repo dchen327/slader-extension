@@ -5,7 +5,7 @@
 - Support Browser:
   - Chrome : 91.0.4472.124
   - Firefox : 90.0
-- Test time : 2021/07/13
+- Test time : 2021/07/14
 
 # Screenshot
 
@@ -48,7 +48,7 @@ or use
 
  	git clone https://github.com/lebr0nli/slader-extension.git
 
-2. Select the file **slader_bypass-0.2-fx.xpi** in **slader-extension-main** 
+2. Select the file **slader_bypass-0.3-fx.xpi** in **slader-extension-main** 
 
 3. Drag the file into the URL bar, click "add" when prompted
 
