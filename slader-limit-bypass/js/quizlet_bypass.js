@@ -76,7 +76,7 @@ function processData(data){
                 }
 
                 // Append server-rendered image src url. Used in errorhandling. (See: handleKatexError())
-                if (column.images.latex.large)
+                if (column.images.latex && column.images.latex.large)
                 {
                     div.querySelector('.sladerBypassKatex').setAttribute('katexsrc', column.images.latex.large.srcUrl);
                 }
