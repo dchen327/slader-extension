@@ -42,7 +42,14 @@ function processData(data){
     var qDetails = JSON.parse(json[0]);
     var solutions = (qDetails.question || qDetails.exercise).solutions;
     // Display JSON data as answer
+    solutionNum = 0;
     solutions.forEach(solution => {
+        solutionNum++;
+        expArea.appendChild(document.createElement('hr'));
+        var h1 = document.createElement('h1');
+        h1.textContent = 'Solution ' + solutionNum + ":";
+        expArea.appendChild(h1);
+
         const numSteps = solution.steps.length;
         solution.steps.forEach(step => {
             const stepNum = step.stepNumber;
