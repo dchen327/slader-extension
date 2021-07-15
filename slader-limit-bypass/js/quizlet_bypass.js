@@ -42,7 +42,14 @@ function processData(data){
     var qDetails = JSON.parse(json[0]);
     var solutions = (qDetails.question || qDetails.exercise).solutions;
     // Display JSON data as answer
+    solutionNum = 0;
     solutions.forEach(solution => {
+        solutionNum++;
+        expArea.appendChild(document.createElement('hr'));
+        var h1 = document.createElement('h1');
+        h1.textContent = 'Solution ' + solutionNum + ":";
+        expArea.appendChild(h1);
+
         const numSteps = solution.steps.length;
         solution.steps.forEach(step => {
             const stepNum = step.stepNumber;
@@ -76,7 +83,7 @@ function processData(data){
                 }
 
                 // Append server-rendered image src url. Used in errorhandling. (See: handleKatexError())
-                if (column.images.latex.large)
+                if (column.images.latex && column.images.latex.large)
                 {
                     div.querySelector('.sladerBypassKatex').setAttribute('katexsrc', column.images.latex.large.srcUrl);
                 }
