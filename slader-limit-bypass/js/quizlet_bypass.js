@@ -70,7 +70,7 @@ function processData(data){
                 if (column.text)
                 {
                     var textDiv = document.createElement('div');
-                    textDiv.classList.add('sladerBypassKatexTextArea')
+                    textDiv.classList.add('sladerBypassKatexTextArea');
                     textDiv.textContent = column.text.replaceAll('\n\n\n', '\n\n'); // The replace call is a bit funky but it works.
                     columnDiv.appendChild(textDiv);
                 }
@@ -81,13 +81,16 @@ function processData(data){
                     image.setAttribute('src', column.images.additional.regular.srcUrl);
                     columnDiv.appendChild(image);
                 }
-
                 // Append server-rendered image src url. Used in errorhandling. (See: handleKatexError())
                 if (column.images.latex && column.images.latex.large)
                 {
                     div.querySelector('.sladerBypassKatex').setAttribute('katexsrc', column.images.latex.large.srcUrl);
                 }
 
+                // handle hasInvalidKatex
+                if(column.hasInvalidKatex)
+                    div.querySelector('.sladerBypassKatex').setAttribute('InvalidKatex', "true");
+                
                 div.querySelector('.sladerBypassKatex').appendChild(columnDiv);
             });
             
@@ -99,21 +102,27 @@ function processData(data){
     // Render Katex for each card
     expArea.querySelectorAll('.sladerBypassKatex').forEach(textArea => {
         try {
-            renderMathInElement(textArea, {
-                delimiters: [
-                    {left: "$$", right: "$$", display: true},
-                    {left: "$", right: "$", display: false},
-                    {left: "\\(", right: "\\)", display: false},
-                    {left: "\\begin{equation}", right: "\\end{equation}", display: true},
-                    {left: "\\begin{align}", right: "\\end{align}", display: true},
-                    {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
-                    {left: "\\begin{gather}", right: "\\end{gather}", display: true},
-                    {left: "\\begin{CD}", right: "\\end{CD}", display: true},
-                    {left: "\\[", right: "\\]", display: true}
-                  ],
-                throwOnError : true,
-                errorCallback : function(a, b){ handleKatexError(a, b, textArea); }
-            });        
+            if(!textArea.hasAttribute("InvalidKatex")){
+                renderMathInElement(textArea, {
+                    delimiters: [
+                        {left: "$$", right: "$$", display: true},
+                        {left: "$", right: "$", display: false},
+                        {left: "\\(", right: "\\)", display: false},
+                        {left: "\\begin{equation}", right: "\\end{equation}", display: true},
+                        {left: "\\begin{align}", right: "\\end{align}", display: true},
+                        {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
+                        {left: "\\begin{gather}", right: "\\end{gather}", display: true},
+                        {left: "\\begin{CD}", right: "\\end{CD}", display: true},
+                        {left: "\\[", right: "\\]", display: true}
+                      ],
+                    throwOnError : true,
+                    errorCallback : function(a, b){ handleKatexError(a, b, textArea); }
+                });
+            }
+            else{
+                // sometimes even hasInvalidKatex, textArea still can render without error
+                handleKatexError("hasInvalidKatex","hasInvalidKatex", textArea);
+            }
         } catch (error) {
             console.error('Katex experienced an error. Attempting to load image replacement.');
         }
