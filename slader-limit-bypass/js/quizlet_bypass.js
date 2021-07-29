@@ -19,7 +19,7 @@ function renderBypass()
 function processData(data){
     // Clear the "hidden explanation" out and replace it with a blank explanation area.
     // The innermost item is ".s1i7awl8"
-    document.querySelector('main .mwhvwas').innerHTML = '<div class="c18oith1 sladerBypass"><div class="s1oluvjw"><h4 class="h1cwp1lk">Explanation</h4><div class="as7m9cv snqbbas"><div data-testid="ExplanationsSolution" class="e1sw891e"><div class="s1i7awl8"></div></div></div></div></div>';
+    document.querySelector('main .mv7e89c').innerHTML = '<div class="c18oith1 sladerBypass"><div class="s1oluvjw"><h4 class="h1cwp1lk">Explanation</h4><div class="as7m9cv snqbbas"><div data-testid="ExplanationsSolution" class="e1sw891e"><div class="s1i7awl8"></div></div></div></div></div>';
     var expArea = document.querySelector('.sladerBypass .s1i7awl8')
 
     // Render new stuff
