@@ -56,7 +56,7 @@ function processData(data){
             // Create card element
             var div = document.createElement('div');
             // Insert boilerplate card data
-            div.innerHTML = '<div class="r8gl7vf" data-testid="ExplanationsSolutionStep" style="padding-top: 0.8rem;"><div class="AssemblyCard AssemblyMediumCard"><div class="ExplanationsSolutionCard c5ngj6s"><div class="h1ejaztj"><h4 class="s39tzu2"></h4><span class="sb9ch1t"></span></div><div class="s1wwu7g8"><div class="s1x7f4sz"><div class=""><div class="s1xkd811"><div class="mi4ni5d sladerBypassKatex" style="white-space: pre-wrap;"></div></div></div></div></div></div></div></div>';
+            div.innerHTML = '<div class="r8gl7vf" data-testid="ExplanationsSolutionStep" style="padding-top: 0.8rem;"><div class="AssemblyCard AssemblyMediumCard"><div class="ExplanationsSolutionCard c5ngj6s"><div class="h1ejaztj"><h4 class="s39tzu2"></h4><span class="sb9ch1t"></span></div><div class="s1wwu7g8"><div class="s1x7f4sz"><div class=""><div class="s1xkd811" style="line-height: 2"><div class="mi4ni5d sladerBypassKatex" style="white-space: pre-wrap;"></div></div></div></div></div></div></div></div>';
             // Step X: .s39tzu2
             div.querySelector('.s39tzu2').textContent = (numSteps === stepNum) ? "Result" : "Step " + stepNum;
             // x of x: .sb9ch1t
